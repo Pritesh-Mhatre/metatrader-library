@@ -112,8 +112,8 @@ datetime readLastOrderTime() {
 * Converts order to easy to read text format.
 */
 string orderString(Variety variety, string symbol, TradeType tradeType, 
-	OrderType orderType, int quantity, float price, float triggerPrice=0, 
-	float target=0, float stoploss=0, float trailingStoploss=0) {
+	OrderType orderType, int quantity, double price, double triggerPrice=0, 
+	double target=0, double stoploss=0, double trailingStoploss=0) {
 	string qty = IntegerToString(quantity);
 	string prc = DoubleToString(price, 2);
 	string trigPrc = DoubleToString(triggerPrice, 2);
@@ -190,8 +190,8 @@ string placeOrderAdvanced(Variety variety, string account,
 	Exchange exchange, string symbol, 
 	TradeType tradeType, OrderType orderType, 
 	ProductType productType, int quantity, 
-	float price, float triggerPrice, float target, 
-	float stoploss, float trailingStoploss,
+	double price, double triggerPrice, double target, 
+	double stoploss, double trailingStoploss,
 	int disclosedQuantity, Validity validity, bool amo,
 	int strategyId, string comments, bool validate) {
 
@@ -285,7 +285,7 @@ string placeOrderAdvanced(Variety variety, string account,
 */
 string placeOrder(string account, Exchange exchange, string symbol, 
 	TradeType tradeType, OrderType orderType, ProductType productType, 
-	int quantity, float price, float triggerPrice, bool validate) {
+	int quantity, double price, double triggerPrice, bool validate) {
 
 	return placeOrderAdvanced(defaultVariety(), account, exchange, symbol, 
 		tradeType, orderType, productType, 
@@ -305,8 +305,8 @@ string placeOrder(string account, Exchange exchange, string symbol,
 */
 string placeBracketOrder(string account, Exchange exchange, string symbol, 
 	TradeType tradeType, OrderType orderType, int quantity, 
-	float price, float triggerPrice, float target, float stoploss, 
-	float trailingStoploss, bool validate) {
+	double price, double triggerPrice, double target, double stoploss, 
+	double trailingStoploss, bool validate) {
 
 	return placeOrderAdvanced(BO, account, exchange, symbol, 
 		tradeType, orderType, INTRADAY, 
@@ -323,7 +323,7 @@ string placeBracketOrder(string account, Exchange exchange, string symbol,
 */
 string placeCoverOrder(string account, Exchange exchange, string symbol, 
 	TradeType tradeType, OrderType orderType, int quantity, 
-	float price, float triggerPrice, bool validate) {
+	double price, double triggerPrice, bool validate) {
 
 	return placeOrderAdvanced(CO, account, exchange, symbol, 
 		tradeType, orderType, INTRADAY, 
@@ -344,7 +344,7 @@ string placeCoverOrder(string account, Exchange exchange, string symbol,
 /*****************************************************************************/
 
 void printOrderModification(string account, string orderId, OrderType orderType, 
-	int quantity, float price, float triggerPrice) {
+	int quantity, double price, double triggerPrice) {
 	
 	string message = "Modification: ";
 	message = message + "[Account = " + account + "]";
@@ -376,7 +376,7 @@ void printOrderModification(string account, string orderId, OrderType orderType,
 * If a parameter is not applicable, then either pass NULL or zero (for numeric parameter).
 */
 bool modifyOrder(string account, string orderId, OrderType orderType, 
-	int quantity, float price, float triggerPrice) {
+	int quantity, double price, double triggerPrice) {
 	
 	string priceStr = DoubleToString(price, AT_PRICE_PRECISION);
 	string triggerPriceStr = DoubleToString(triggerPrice, AT_PRICE_PRECISION);
@@ -409,7 +409,7 @@ bool modifyOrder(string account, string orderId, OrderType orderType,
 	return written;
 }
 
-bool modifyOrderPrice(string account, string orderId, float price) {
+bool modifyOrderPrice(string account, string orderId, double price) {
 	return modifyOrder(account, orderId, NULL, 0, price, 0);
 }
 
@@ -538,35 +538,35 @@ ProductType getOrderProductType(string pseudoAccount, string orderId) {
 /*
 * Retrieve order's quantity.
 */
-uint getOrderQuantity(string pseudoAccount, string orderId) {
+long getOrderQuantity(string pseudoAccount, string orderId) {
 	return StringToInteger(readOrderColumn(pseudoAccount, orderId, 12));
 }
 
 /*
 * Retrieve order's price.
 */
-float getOrderPrice(string pseudoAccount, string orderId) {
+double getOrderPrice(string pseudoAccount, string orderId) {
 	return StringToDouble(readOrderColumn(pseudoAccount, orderId, 13));
 }
 
 /*
 * Retrieve order's trigger price.
 */
-float getOrderTriggerPrice(string pseudoAccount, string orderId) {
+double getOrderTriggerPrice(string pseudoAccount, string orderId) {
 	return StringToDouble(readOrderColumn(pseudoAccount, orderId, 14));
 }
 
 /*
 * Retrieve order's filled quantity.
 */
-uint getOrderFilledQuantity(string pseudoAccount, string orderId) {
+long getOrderFilledQuantity(string pseudoAccount, string orderId) {
 	return StringToInteger(readOrderColumn(pseudoAccount, orderId, 15));
 }
 
 /*
 * Retrieve order's pending quantity.
 */
-uint getOrderPendingQuantity(string pseudoAccount, string orderId) {
+long getOrderPendingQuantity(string pseudoAccount, string orderId) {
 	return StringToInteger(readOrderColumn(pseudoAccount, orderId, 16));
 }
 
@@ -596,7 +596,7 @@ Validity getOrderValidity(string pseudoAccount, string orderId) {
 /*
 * Retrieve order's average price at which it got traded.
 */
-float getOrderAveragePrice(string pseudoAccount, string orderId) {
+double getOrderAveragePrice(string pseudoAccount, string orderId) {
 	return StringToDouble(readOrderColumn(pseudoAccount, orderId, 20));
 }
 
@@ -610,7 +610,7 @@ string getOrderParentOrderId(string pseudoAccount, string orderId) {
 /*
 * Retrieve order's disclosed quantity.
 */
-uint getOrderDisclosedQuantity(string pseudoAccount, string orderId) {
+long getOrderDisclosedQuantity(string pseudoAccount, string orderId) {
 	return StringToInteger(readOrderColumn(pseudoAccount, orderId, 22));
 }
 
@@ -776,7 +776,7 @@ string getPositionTradingAccount(string pseudoAccount,
 /*
 * Retrieve positions's MTM.
 */
-float getPositionMtm(string pseudoAccount, 
+double getPositionMtm(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -786,7 +786,7 @@ float getPositionMtm(string pseudoAccount,
 /*
 * Retrieve positions's PNL.
 */
-float getPositionPnl(string pseudoAccount, 
+double getPositionPnl(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -796,7 +796,7 @@ float getPositionPnl(string pseudoAccount,
 /*
 * Retrieve positions's buy quantity.
 */
-int getPositionBuyQuantity(string pseudoAccount, 
+long getPositionBuyQuantity(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToInteger(readPositionColumn(pseudoAccount, 
@@ -806,7 +806,7 @@ int getPositionBuyQuantity(string pseudoAccount,
 /*
 * Retrieve positions's sell quantity.
 */
-int getPositionSellQuantity(string pseudoAccount, 
+long getPositionSellQuantity(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToInteger(readPositionColumn(pseudoAccount, 
@@ -816,7 +816,7 @@ int getPositionSellQuantity(string pseudoAccount,
 /*
 * Retrieve positions's net quantity.
 */
-int getPositionNetQuantity(string pseudoAccount, 
+long getPositionNetQuantity(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToInteger(readPositionColumn(pseudoAccount, 
@@ -826,7 +826,7 @@ int getPositionNetQuantity(string pseudoAccount,
 /*
 * Retrieve positions's buy value.
 */
-float getPositionBuyValue(string pseudoAccount, 
+double getPositionBuyValue(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -836,7 +836,7 @@ float getPositionBuyValue(string pseudoAccount,
 /*
 * Retrieve positions's sell value.
 */
-float getPositionSellValue(string pseudoAccount, 
+double getPositionSellValue(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -846,7 +846,7 @@ float getPositionSellValue(string pseudoAccount,
 /*
 * Retrieve positions's net value.
 */
-float getPositionNetValue(string pseudoAccount, 
+double getPositionNetValue(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -856,7 +856,7 @@ float getPositionNetValue(string pseudoAccount,
 /*
 * Retrieve positions's buy average price.
 */
-float getPositionBuyAvgPrice(string pseudoAccount, 
+double getPositionBuyAvgPrice(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -866,7 +866,7 @@ float getPositionBuyAvgPrice(string pseudoAccount,
 /*
 * Retrieve positions's sell average price.
 */
-float getPositionSellAvgPrice(string pseudoAccount, 
+double getPositionSellAvgPrice(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -876,7 +876,7 @@ float getPositionSellAvgPrice(string pseudoAccount,
 /*
 * Retrieve positions's realised pnl.
 */
-float getPositionRealisedPnl(string pseudoAccount, 
+double getPositionRealisedPnl(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -886,7 +886,7 @@ float getPositionRealisedPnl(string pseudoAccount,
 /*
 * Retrieve positions's unrealised pnl.
 */
-float getPositionUnrealisedPnl(string pseudoAccount, 
+double getPositionUnrealisedPnl(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -896,7 +896,7 @@ float getPositionUnrealisedPnl(string pseudoAccount,
 /*
 * Retrieve positions's overnight quantity.
 */
-int getPositionOvernightQuantity(string pseudoAccount, 
+long getPositionOvernightQuantity(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToInteger(readPositionColumn(pseudoAccount, 
@@ -906,7 +906,7 @@ int getPositionOvernightQuantity(string pseudoAccount,
 /*
 * Retrieve positions's multiplier.
 */
-float getPositionMultiplier(string pseudoAccount, 
+double getPositionMultiplier(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -916,7 +916,7 @@ float getPositionMultiplier(string pseudoAccount,
 /*
 * Retrieve positions's LTP.
 */
-float getPositionLtp(string pseudoAccount, 
+double getPositionLtp(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
@@ -1003,84 +1003,84 @@ string readMarginColumn(string pseudoAccount, string category, uint columnIndex)
 /*
 * Retrieve margin funds.
 */
-float getMarginFunds(string pseudoAccount, string category) {
+double getMarginFunds(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 4));
 }
 
 /*
 * Retrieve margin utilized.
 */
-float getMarginUtilized(string pseudoAccount, string category) {
+double getMarginUtilized(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 5));
 }
 
 /*
 * Retrieve margin available.
 */
-float getMarginAvailable(string pseudoAccount, string category) {
+double getMarginAvailable(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 6));
 }
 
 /*
 * Retrieve margin funds for equity category.
 */
-float getMarginFundsEquity(string pseudoAccount) {
+double getMarginFundsEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 4));
 }
 
 /*
 * Retrieve margin utilized for equity category.
 */
-float getMarginUtilizedEquity(string pseudoAccount) {
+double getMarginUtilizedEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 5));
 }
 
 /*
 * Retrieve margin available for equity category.
 */
-float getMarginAvailableEquity(string pseudoAccount) {
+double getMarginAvailableEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 6));
 }
 
 /*
 * Retrieve margin funds for commodity category.
 */
-float getMarginFundsCommodity(string pseudoAccount) {
+double getMarginFundsCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 4));
 }
 
 /*
 * Retrieve margin utilized for commodity category.
 */
-float getMarginUtilizedCommodity(string pseudoAccount) {
+double getMarginUtilizedCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 5));
 }
 
 /*
 * Retrieve margin available for commodity category.
 */
-float getMarginAvailableCommodity(string pseudoAccount) {
+double getMarginAvailableCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 6));
 }
 
 /*
 * Retrieve margin funds for entire account.
 */
-float getMarginFundsAll(string pseudoAccount) {
+double getMarginFundsAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 4));
 }
 
 /*
 * Retrieve margin utilized for entire account.
 */
-float getMarginUtilizedAll(string pseudoAccount) {
+double getMarginUtilizedAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 5));
 }
 
 /*
 * Retrieve margin available for entire account.
 */
-float getMarginAvailableAll(string pseudoAccount) {
+double getMarginAvailableAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 6));
 }
 
