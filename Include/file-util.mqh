@@ -28,9 +28,9 @@ bool fileWriteLineAdvanced( string filePath, int openFlags, uint retryCount, str
 
 	bool result = false;
 	string data;
-	data = StringConcatenate(line, WINDOWS_NEWLINE);   
-
-	for(int i = 0; i < retryCount; i++) {
+	data = line + WINDOWS_NEWLINE;
+	
+	for(uint i = 0; i < retryCount; i++) {
 		ResetLastError();
 		int handle = FileOpen(filePath, openFlags);
 		if(handle != INVALID_HANDLE) {
@@ -82,7 +82,7 @@ string fileReadCsvColumnByRowId( string filePath, string rowId,
 			string cols[];
 			int splitCnt = StringSplit(line, uSep, cols);			
 			if(splitCnt > 0 && 
-				StringCompare(id, cols[rowIdColumnIndex - 1]) == 0) {
+				StringCompare(rowId, cols[rowIdColumnIndex - 1]) == 0) {
 				result = cols[columnIndex - 1];
 				break;
 			}			
