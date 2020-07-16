@@ -13,8 +13,8 @@
 
 /* Import AutoTrader specific metatrader libraries */
 
-#include <autotrader-ipc.afl>
-#include <autotrader-defaults.afl>
+#include <autotrader-ipc.mqh>
+#include <autotrader-defaults.mqh>
 
 /***************************** CONSTANTS - START *****************************/
 
