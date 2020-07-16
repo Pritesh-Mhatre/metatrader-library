@@ -990,93 +990,93 @@ string getPositionStockBroker(string pseudoAccount,
 /*
 * Reads margins file and returns a column value for the given margin category.
 */
-function readMarginColumn(pseudoAccount, category, columnIndex) {
-	filePath = getPortfolioMarginsFile(pseudoAccount);
+string readMarginColumn(string pseudoAccount, string category, uint columnIndex) {
+	string filePath = getPortfolioMarginsFile(pseudoAccount);
 	return fileReadCsvColumnByRowId( filePath, category, 3, columnIndex );
 }
 
 /*
 * Retrieve margin funds.
 */
-function getMarginFunds(pseudoAccount, category) {
-	return StrToNum(readMarginColumn(pseudoAccount, category, 4));
+float getMarginFunds(pseudoAccount, category) {
+	return StringToDouble(readMarginColumn(pseudoAccount, category, 4));
 }
 
 /*
 * Retrieve margin utilized.
 */
-function getMarginUtilized(pseudoAccount, category) {
-	return StrToNum(readMarginColumn(pseudoAccount, category, 5));
+float getMarginUtilized(pseudoAccount, category) {
+	return StringToDouble(readMarginColumn(pseudoAccount, category, 5));
 }
 
 /*
 * Retrieve margin available.
 */
-function getMarginAvailable(pseudoAccount, category) {
-	return StrToNum(readMarginColumn(pseudoAccount, category, 6));
+float getMarginAvailable(pseudoAccount, category) {
+	return StringToDouble(readMarginColumn(pseudoAccount, category, 6));
 }
 
 /*
 * Retrieve margin funds for equity category.
 */
-function getMarginFundsEquity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 4));
+float getMarginFundsEquity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 4));
 }
 
 /*
 * Retrieve margin utilized for equity category.
 */
-function getMarginUtilizedEquity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 5));
+float getMarginUtilizedEquity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 5));
 }
 
 /*
 * Retrieve margin available for equity category.
 */
-function getMarginAvailableEquity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 6));
+float getMarginAvailableEquity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 6));
 }
 
 /*
 * Retrieve margin funds for commodity category.
 */
-function getMarginFundsCommodity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 4));
+float getMarginFundsCommodity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 4));
 }
 
 /*
 * Retrieve margin utilized for commodity category.
 */
-function getMarginUtilizedCommodity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 5));
+float getMarginUtilizedCommodity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 5));
 }
 
 /*
 * Retrieve margin available for commodity category.
 */
-function getMarginAvailableCommodity(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 6));
+float getMarginAvailableCommodity(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 6));
 }
 
 /*
 * Retrieve margin funds for entire account.
 */
-function getMarginFundsAll(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 4));
+float getMarginFundsAll(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 4));
 }
 
 /*
 * Retrieve margin utilized for entire account.
 */
-function getMarginUtilizedAll(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 5));
+float getMarginUtilizedAll(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 5));
 }
 
 /*
 * Retrieve margin available for entire account.
 */
-function getMarginAvailableAll(pseudoAccount) {
-	return StrToNum(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 6));
+float getMarginAvailableAll(pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 6));
 }
 
 /*****************************************************************************/
