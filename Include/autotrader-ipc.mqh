@@ -11,7 +11,7 @@ static string WIN_SEPARATOR = "\\";
 static string UNIX_SEPARATOR = "/";
 
 /* Inter process communication directory */
-static string IPC_DIR = "<ipc_commnunication_dir>";
+static string IPC_DIR = "autotrader";
 
 /* Directory that contains input files for AutoTrader */
 static string INPUT_DIR = IPC_DIR + WIN_SEPARATOR + "input";
