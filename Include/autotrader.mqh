@@ -77,9 +77,7 @@ string generateUniqueOrderId() {
 	string random = IntegerToString(MathRand());
 	string time = IntegerToString(TimeLocal());
 
-	string result;
-	result = StringConcatenate(time, "-", random);
-	return result;
+	return time + "-" + random;
 }
 
 /*
@@ -122,20 +120,22 @@ string orderString(Variety variety, string symbol, TradeType tradeType,
 	string t = DoubleToString(target, 2);
 	string sl = DoubleToString(stoploss, 2);
 	string tsl = DoubleToString(trailingStoploss, 2);
+	string tradeTypeStr = EnumToString(tradeType);
+	string orderTypeStr = EnumToString(orderType);
 	string separator = "|";
 
-	string conciseForm = symbol + "|" + tradeType + "|" + orderType + "|" + 
-		quantity + "@" + price;
+	string conciseForm = symbol + "|" + tradeTypeStr + "|" + orderTypeStr + "|" + 
+		qty + "@" + prc;
 
 	string result;
 
 	if(variety == BO) {
 		result = "Bracket Order [" + conciseForm + "|" + 
-			"t=" + target + "|" + "sl=" + stoploss + "|" + 
-			"tr. sl=" + trailingStoploss + "]";
+			"t=" + t + "|" + "sl=" + sl + "|" + 
+			"tr. sl=" + tsl + "]";
 	} else if (variety == CO) {
 		result = "Cover Order [" + conciseForm + "|" + "trigger=" + 
-			triggerPrice +  "]";
+			trigPrc +  "]";
 	} else {
 		result = "Regular Order [" + conciseForm + "]";
 	}
@@ -157,7 +157,7 @@ bool isDuplicateSignal(TradeType tradeType) {
 	if(time != NULL) {
 		long difference = TimeLocal() - time;
 		
-		if(difference < AT_AVOID_REPEAT_ORDER_DELAY AND 
+		if(difference < AT_AVOID_REPEAT_ORDER_DELAY && 
 			lastTradeType == tradeType) {
 			   
 			Print("ERROR: Duplicate signal. Previous order = ",
@@ -168,7 +168,7 @@ bool isDuplicateSignal(TradeType tradeType) {
 				Print("Last order time is = ", TimeToString(time, TIME_SECONDS));
 				Print("Difference of [", difference,
 					"] seconds is less than avoid duplicate order duration of [",
-					AT_AVOID_REPEAT_ORDER_DELAY + "] seconds.");
+					IntegerToString(AT_AVOID_REPEAT_ORDER_DELAY) + "] seconds.");
 			}
 			
 			duplicate = true;
@@ -231,13 +231,11 @@ string placeOrderAdvanced(Variety variety, string account,
 		string targetStr = DoubleToString(target, AT_PRICE_PRECISION);
 		string stoplossStr = DoubleToString(stoploss, AT_PRICE_PRECISION);
 		string trailingStoplossStr = DoubleToString(trailingStoploss, AT_PRICE_PRECISION);
+		
 		// Handling for a comma in comments
-		string commentsStr = StringReplace(comments, AT_COMMA, ";" );
+		StringReplace(comments, AT_COMMA, ";" );
 	
 		string amoStr = amo ? "true" : "false";
-			
-		// Handling for a comma in comments
-		commentsStr = StrReplace(comments, AT_COMMA, ";" );
 
 		string csv = 
 			AT_PLACE_ORDER_CMD 		+ AT_COMMA +
@@ -249,17 +247,17 @@ string placeOrderAdvanced(Variety variety, string account,
 			EnumToString(tradeType)		+ AT_COMMA +
 			EnumToString(orderType) 		+ AT_COMMA +
 			EnumToString(productType)	+ AT_COMMA +
-			quantity 								+ AT_COMMA +
+			IntegerToString(quantity)		+ AT_COMMA +
 			priceStr 								+ AT_COMMA +
 			triggerPriceStr 						+ AT_COMMA +
 			targetStr 								+ AT_COMMA +
 			stoplossStr 							+ AT_COMMA +
 			trailingStoplossStr 				+ AT_COMMA +
-			disclosedQuantity 					+ AT_COMMA +
+			IntegerToString(disclosedQuantity)		+ AT_COMMA +
 			EnumToString(validity) 			+ AT_COMMA +
 			amoStr									+ AT_COMMA +
 			publishTime							+ AT_COMMA +
-			strategyId 							+ AT_COMMA +
+			IntegerToString(strategyId)	+ AT_COMMA +
 			comments;
 
 		if(AT_DEBUG) {
@@ -299,7 +297,7 @@ string placeOrder(string account, Exchange exchange, string symbol,
 }
 
 /*
-* A function to place bracket orders.Returns order id on successful 
+* A function to place bracket orders. Returns order id on successful 
 * order placement; otherwise returns blank.
 * 
 * If a parameter is not applicable, then either pass blank (for text parameter) 
@@ -320,10 +318,10 @@ string placeBracketOrder(string account, Exchange exchange, string symbol,
 }
 
 /*
-* A function to place cover orders.Returns order id on successful 
+* A function to place cover orders. Returns order id on successful 
 * order placement; otherwise returns blank.
 */
-function placeCoverOrder(string account, Exchange exchange, string symbol, 
+string placeCoverOrder(string account, Exchange exchange, string symbol, 
 	TradeType tradeType, OrderType orderType, int quantity, 
 	float price, float triggerPrice, bool validate) {
 
@@ -353,19 +351,19 @@ void printOrderModification(string account, string orderId, OrderType orderType,
 	message = message + "[Order Id = " + orderId + "]";
 	
 	if(orderType != NULL) {
-		message = message + "[OrderType = " + orderType + "]";
+		message = message + "[OrderType = " + EnumToString(orderType) + "]";
 	}
 	
 	if(quantity > 0) {
-		message = message + "[Quantity = " + quantity + "]";
+		message = message + "[Quantity = " + IntegerToString(quantity) + "]";
 	}
 	
 	if(price > 0) {
-		message = message + "[Price = " + price + "]";
+		message = message + "[Price = " + DoubleToString(price) + "]";
 	}
 	
 	if(triggerPrice > 0) {
-		message = message + "[Trigger Price = " + triggerPrice + "]";
+		message = message + "[Trigger Price = " + DoubleToString(triggerPrice) + "]";
 	}
 	
 	Print(message);	
@@ -389,7 +387,7 @@ bool modifyOrder(string account, string orderId, OrderType orderType,
 		account 									+ AT_COMMA + 
 		orderId 										+ AT_COMMA + 
 		orderTypeStr								+ AT_COMMA +  
-		quantity 									+ AT_COMMA +  
+		IntegerToString(quantity)			+ AT_COMMA +  
 		priceStr 									+ AT_COMMA +  
 		triggerPriceStr;
 	
@@ -722,7 +720,6 @@ string readPositionColumnInternal(string pseudoAccount,
 	int handle = FileOpen(filePath, FILE_DEFAULT_READ_FLAGS);
  	
 	if(handle != INVALID_HANDLE) {
-	{
 		while(!FileIsEnding(handle)) {
 			string line = FileReadString(handle);
 			StringTrimRight(line);
@@ -1006,84 +1003,84 @@ string readMarginColumn(string pseudoAccount, string category, uint columnIndex)
 /*
 * Retrieve margin funds.
 */
-float getMarginFunds(pseudoAccount, category) {
+float getMarginFunds(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 4));
 }
 
 /*
 * Retrieve margin utilized.
 */
-float getMarginUtilized(pseudoAccount, category) {
+float getMarginUtilized(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 5));
 }
 
 /*
 * Retrieve margin available.
 */
-float getMarginAvailable(pseudoAccount, category) {
+float getMarginAvailable(string pseudoAccount, string category) {
 	return StringToDouble(readMarginColumn(pseudoAccount, category, 6));
 }
 
 /*
 * Retrieve margin funds for equity category.
 */
-float getMarginFundsEquity(pseudoAccount) {
+float getMarginFundsEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 4));
 }
 
 /*
 * Retrieve margin utilized for equity category.
 */
-float getMarginUtilizedEquity(pseudoAccount) {
+float getMarginUtilizedEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 5));
 }
 
 /*
 * Retrieve margin available for equity category.
 */
-float getMarginAvailableEquity(pseudoAccount) {
+float getMarginAvailableEquity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 6));
 }
 
 /*
 * Retrieve margin funds for commodity category.
 */
-float getMarginFundsCommodity(pseudoAccount) {
+float getMarginFundsCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 4));
 }
 
 /*
 * Retrieve margin utilized for commodity category.
 */
-float getMarginUtilizedCommodity(pseudoAccount) {
+float getMarginUtilizedCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 5));
 }
 
 /*
 * Retrieve margin available for commodity category.
 */
-float getMarginAvailableCommodity(pseudoAccount) {
+float getMarginAvailableCommodity(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 6));
 }
 
 /*
 * Retrieve margin funds for entire account.
 */
-float getMarginFundsAll(pseudoAccount) {
+float getMarginFundsAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 4));
 }
 
 /*
 * Retrieve margin utilized for entire account.
 */
-float getMarginUtilizedAll(pseudoAccount) {
+float getMarginUtilizedAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 5));
 }
 
 /*
 * Retrieve margin available for entire account.
 */
-float getMarginAvailableAll(pseudoAccount) {
+float getMarginAvailableAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 6));
 }
 
