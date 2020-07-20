@@ -23,19 +23,21 @@
 
 int OnInit()
   {
-   // placeOrderAdvancedExample();
+	// getMarginExample()
+  
+	// placeOrderAdvancedExample();
    
-   // placeOrderExample();
+	// placeOrderExample();
    
-   // placeBracketOrderExample();
+	// placeBracketOrderExample();
    
-   // placeCoverOrderExample();
+	// placeCoverOrderExample();
    
-   // modifyOrderPriceExample();
+	// modifyOrderPriceExample();
    
-   // cancelOrderExample();
+	// cancelOrderExample();
    
-   return(INIT_SUCCEEDED);
+	return(INIT_SUCCEEDED);
   }
 
 void OnDeinit(const int reason)
@@ -85,4 +87,16 @@ void modifyOrderPriceExample() {
 
 void cancelOrderExample() {
    cancelOrder(AT_ACCOUNT, "1595251085-3681");
+}
+
+void getMarginExample() {
+   Print("Get Margins Example");
+   
+   double fundsAll = getMarginFundsAll(AT_ACCOUNT);
+   double utilizedAll = getMarginUtilizedAll(AT_ACCOUNT);
+   double availableAll = getMarginAvailableAll(AT_ACCOUNT);
+   
+   Print("Funds (ALL) = ", fundsAll);
+   Print("Utilized (ALL) = ", utilizedAll);
+   Print("Available (ALL) = ", availableAll);
 }
