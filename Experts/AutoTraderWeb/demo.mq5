@@ -23,7 +23,11 @@
 
 int OnInit()
   {
-	// getMarginExample()
+	// readMarginExample();
+	
+	// readOrderExample();
+	
+	// readPositionExample();
   
 	// placeOrderAdvancedExample();
    
@@ -89,8 +93,8 @@ void cancelOrderExample() {
    cancelOrder(AT_ACCOUNT, "1595251085-3681");
 }
 
-void getMarginExample() {
-   Print("Get Margins Example");
+void readMarginExample() {
+   Print("Read Margins Example");
    
    double fundsAll = getMarginFundsAll(AT_ACCOUNT);
    double utilizedAll = getMarginUtilizedAll(AT_ACCOUNT);
@@ -99,4 +103,47 @@ void getMarginExample() {
    Print("Funds (ALL) = ", fundsAll);
    Print("Utilized (ALL) = ", utilizedAll);
    Print("Available (ALL) = ", availableAll);
+}
+
+void readOrderExample() {
+   Print("Read Orders Example");
+   
+   string status = getOrderStatus(AT_ACCOUNT, "553094782");
+   double averagePrice = getOrderAveragePrice(AT_ACCOUNT, "553094790");
+   long pendingQuantity = getOrderPendingQuantity(AT_ACCOUNT, "553094783");
+   
+   Print("Status = ", status);
+   Print("Avg. price = ", averagePrice);
+   Print("Pending qty. = ", pendingQuantity);
+}
+
+void readPositionExample() {
+   Print("Read Positions Example");
+   
+	// Category can be (DAY, NET)
+	string category = "DAY";
+	  
+	// Type can be (MIS, NRML, CNC, BO, CO)
+	string type = "MIS";
+	 
+	double mtm = getPositionMtm(AT_ACCOUNT, 
+		category, type, NSE, AT_SYMBOL);
+	 
+	double pnl = getPositionPnl(AT_ACCOUNT, 
+		category, type, NSE, AT_SYMBOL);
+	 
+	long buyQuantity = getPositionBuyQuantity(AT_ACCOUNT, 
+		category, type, NSE, AT_SYMBOL);
+	 
+	long sellQuantity = getPositionSellQuantity(AT_ACCOUNT, 
+		category, type, NSE, AT_SYMBOL);
+	 
+	long netQuantity = getPositionNetQuantity(AT_ACCOUNT, 
+		category, type, NSE, AT_SYMBOL);
+   
+   Print("mtm = ", mtm);
+   Print("pnl = ", pnl);
+   Print("buy quantity = ", buyQuantity);
+   Print("sell quantity = ", sellQuantity);
+   Print("net quantity = ", netQuantity);
 }
