@@ -483,7 +483,7 @@ bool cancelOrderChildren(string account, string id) {
 * which will result in exiting the position.
 * Pass account & id you received after placing a bracket or cover order.
 */
-bool cancelOrExitOrder(account, id) {
+bool cancelOrExitOrder(string account, string id) {
 	if(AT_DEBUG) {
 		Print("Inside cancelOrExitOrder, order id = ", id);
 	}
