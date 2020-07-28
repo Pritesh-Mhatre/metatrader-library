@@ -14,6 +14,7 @@ static string AT_NA = "NA";
 static string AT_PLACE_ORDER_CMD = "PLACE_ORDER";
 static string AT_CANCEL_ORDER_CMD = "CANCEL_ORDER";
 static string AT_MODIFY_ORDER_CMD = "MODIFY_ORDER";
+static string AT_CANCEL_CHILD_ORDER_CMD = "CANCEL_CHILD_ORDER";
 
 static string AT_MARGIN_EQUITY = "EQUITY";
 static string AT_MARGIN_COMMODITY = "COMMODITY";

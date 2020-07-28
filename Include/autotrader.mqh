@@ -450,6 +450,53 @@ bool cancelOrder(string account, string id) {
 	return written;
 }
 
+/*
+* Cancels child orders of a bracket or cover order. 
+* This function is useful for exiting from bracket and cover order.
+* Pass the account & id you received after placing a bracket or cover order.
+* Returns true on success.
+*/
+bool cancelOrderChildren(string account, string id) {
+	if(AT_DEBUG) {
+		Print("Cancelling child orders, order id = ", id);
+	}
+
+	string csv = 
+			AT_CANCEL_CHILD_ORDER_CMD 	+ AT_COMMA +
+			account 										+ AT_COMMA +
+			id;
+	
+	bool written = fileWriteLine(COMMANDS_FILE, csv);
+	
+	if(written) {
+		Print("Order cancel children request sent.");
+	} else {
+		Print("Order cancel children request failed.");
+	}
+	
+	return written;
+}
+
+/*
+* Cancels or exits from order. This function is useful for exiting from bracket and cover order.
+* If the order is OPEN, it will be cancelled. If it is executed, system will cancel it's child orders;
+* which will result in exiting the position.
+* Pass account & id you received after placing a bracket or cover order.
+*/
+bool cancelOrExitOrder(account, id) {
+	if(AT_DEBUG) {
+		Print("Inside cancelOrExitOrder, order id = ", id);
+	}
+
+	// Cancel the Bracket order if it is open
+	bool a = cancelOrder(account, id);
+
+	// Exit from bracket order
+	bool b = cancelOrderChildren(account, id);
+	
+	return (a && b);
+}
+
 /*****************************************************************************/
 /************************ CANCEL/EXIT ORDER FUNCTIONS - END ***********************/
 /*****************************************************************************/
