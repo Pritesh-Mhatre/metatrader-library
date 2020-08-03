@@ -40,6 +40,8 @@ int OnInit()
 	// modifyOrderPriceExample();
    
 	// cancelOrderExample();
+	
+	// checkOrderStatus();
    
 	return(INIT_SUCCEEDED);
   }
@@ -54,6 +56,14 @@ void OnTick()
 /*********************************************************************
 * Given below are some examples of AutoTrader functions.
 *********************************************************************/
+
+void checkOrderStatus() {
+   Print("Status: ", getOrderStatus("159401", "553094789")); 
+   Print("Is Open: ", isOrderOpen("159401", "553094789")); 
+   Print("Is Complete: ", isOrderComplete("159401", "553094789")); 
+   Print("Is Cancelled: ", isOrderCancelled("159401", "553094789")); 
+   Print("Is Rejected: ", isOrderRejected("159401", "553094789")); 
+}
 
 void placeOrderAdvancedExample() {
    string id = placeOrderAdvanced(REGULAR, AT_ACCOUNT, 
