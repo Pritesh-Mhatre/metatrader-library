@@ -739,6 +739,47 @@ string getOrderStockBroker(string pseudoAccount, string orderId) {
 	return readOrderColumn(pseudoAccount, orderId, 33);
 }
 
+/*
+* Checks whether order is open.
+* orderId - should be the id returned by placeOrder function when you place an order.
+*/
+bool isOrderOpen(string pseudoAccount, string orderId) {
+	string oStatus = getOrderStatus(pseudoAccount, orderId);
+	
+	return (StringCompare("OPEN", oStatus, false) == 0) || 
+	   (StringCompare("TRIGGER_PENDING", oStatus, false) == 0);
+}
+
+/*
+* Checks whether order is complete.
+* orderId - should be the id returned by placeOrder function when you place an order.
+*/
+bool isOrderComplete(string pseudoAccount, string orderId) {
+	string oStatus = getOrderStatus(pseudoAccount, orderId);
+	
+	return StringCompare("COMPLETE", oStatus, false) == 0;
+}
+
+/*
+* Checks whether order is rejected.
+* orderId - should be the id returned by placeOrder function when you place an order.
+*/
+bool isOrderRejected(string pseudoAccount, string orderId) {
+	string oStatus = getOrderStatus(pseudoAccount, orderId);
+	
+	return StringCompare("REJECTED", oStatus, false) == 0;
+}
+
+/*
+* Checks whether order is cancelled.
+* orderId - should be the id returned by placeOrder function when you place an order.
+*/
+bool isOrderCancelled(string pseudoAccount, string orderId) {
+	string oStatus = getOrderStatus(pseudoAccount, orderId);
+	
+	return StringCompare("CANCELLED", oStatus, false) == 0;
+}
+
 /*****************************************************************************/
 /************************ ORDER DETAIL FUNCTIONS - END ***********************/
 /*****************************************************************************/
