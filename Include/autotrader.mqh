@@ -503,7 +503,87 @@ bool cancelOrExitOrder(string account, string id) {
 
 
 /*****************************************************************************/
-/************************ ORDER DETAIL FUNCTIONS - END ***********************/
+/************************ SQUARE OFF FUNCTIONS - START ***********************/
+/*****************************************************************************/
+
+/**
+* Submits a square-off request for the given position.
+*
+* pseudoAccount - account to which the position belongs
+* category - position category (DAY, NET). Pass DAY if you are not sure.
+* type - position type (MIS, NRML, CNC, BO, CO) 
+* exchange - broker independent exchange
+* independentSymbol - broker independent symbol
+*/
+function squareOffPosition(string pseudoAccount, string category, 
+	string type, Exchange exchange, string independentSymbol) {
+	
+	string positionStr = pseudoAccount 				+ AT_PIPE +
+								category							+ AT_PIPE +
+								type									+ AT_PIPE +
+								EnumToString(exchange)	+ AT_PIPE +
+								independentSymbol;
+	
+	if(AT_DEBUG) {
+		Print("Inside squareOffPosition, position: [", positionStr, "]");
+	}
+
+	string csv = AT_SQUARE_OFF_POSITION 		+ AT_COMMA +
+			pseudoAccount 							+ AT_COMMA +
+			category									+ AT_COMMA +
+			type											+ AT_COMMA +
+			EnumToString(exchange)			+ AT_COMMA +
+			independentSymbol;
+
+	bool written = fileWriteLine(COMMANDS_FILE, csv);
+	
+	if(written) {
+		Print("Square-off position request sent. Position: [", positionStr, "]");
+	} else {
+		Print("Square-off position request failed. Position: [", positionStr, "]");
+	}
+	
+	return written;
+}
+
+/**
+* Submits a square-off request for the given account.
+* Server will square-off all open positions in the given account.
+*
+* pseudoAccount - account to which the position belongs
+* category - position category (DAY, NET). Pass DAY if you are not sure.
+*/
+function squareOffPortfolio(string pseudoAccount, string category) {
+	
+	string portfolioStr = pseudoAccount 	+ AT_PIPE +
+						category;
+	
+	if(AT_DEBUG) {
+		Print("Inside squareOffPortfolio, portfolio: [", portfolioStr, "]");
+	}
+
+	string csv = AT_SQUARE_OFF_PORTFOLIO 	+ AT_COMMA +
+					pseudoAccount 							+ AT_COMMA +
+					category;
+
+	bool written = fileWriteLine(COMMANDS_FILE, csv);
+	
+	if(written) {
+		Print("Square-off portfolio request sent. Portfolio: [", portfolioStr, "]");
+	} else {
+		Print("Square-off portfolio request failed. Portfolio: [", portfolioStr, "]");
+	}
+	
+	return written;
+}
+
+/*****************************************************************************/
+/************************ SQUARE OFF FUNCTIONS - END ***********************/
+/*****************************************************************************/
+
+
+/*****************************************************************************/
+/************************ ORDER DETAIL FUNCTIONS - START ***********************/
 /*****************************************************************************/
 
 /*
