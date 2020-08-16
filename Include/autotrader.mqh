@@ -515,7 +515,7 @@ bool cancelOrExitOrder(string account, string id) {
 * exchange - broker independent exchange
 * independentSymbol - broker independent symbol
 */
-function squareOffPosition(string pseudoAccount, string category, 
+bool squareOffPosition(string pseudoAccount, string category, 
 	string type, Exchange exchange, string independentSymbol) {
 	
 	string positionStr = pseudoAccount 				+ AT_PIPE +
@@ -553,7 +553,7 @@ function squareOffPosition(string pseudoAccount, string category,
 * pseudoAccount - account to which the position belongs
 * category - position category (DAY, NET). Pass DAY if you are not sure.
 */
-function squareOffPortfolio(string pseudoAccount, string category) {
+bool squareOffPortfolio(string pseudoAccount, string category) {
 	
 	string portfolioStr = pseudoAccount 	+ AT_PIPE +
 						category;
