@@ -31,3 +31,8 @@ Massively reduce trading costs based on following features:
   - MVT (Mastertrust) Web
   - Angel Broking Web
 - A **[complete list of features](https://stocksdeveloper.in/autotrader-web-features/)**
+
+## Help
+- **[User Guide](https://stocksdeveloper.in/documentation/index/)**
+- **[User Guide - Java Library](https://stocksdeveloper.in/documentation/client-setup/java-library/)**
+- **[User Guide - API Docs](https://stocksdeveloper.in/documentation/api/)**
