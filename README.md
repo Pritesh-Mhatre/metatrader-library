@@ -34,5 +34,5 @@ Massively reduce trading costs based on following features:
 
 ## Help
 - **[User Guide](https://stocksdeveloper.in/documentation/index/)**
-- **[User Guide - Java Library](https://stocksdeveloper.in/documentation/client-setup/java-library/)**
+- **[User Guide - MetaTrader Library](https://stocksdeveloper.in/documentation/client-setup/metatrader-library/)**
 - **[User Guide - API Docs](https://stocksdeveloper.in/documentation/api/)**
