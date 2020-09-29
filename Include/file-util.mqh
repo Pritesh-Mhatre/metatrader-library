@@ -34,12 +34,41 @@ bool fileWriteLineAdvanced( string filePath, int openFlags, uint retryCount, str
 		ResetLastError();
 		int handle = FileOpen(filePath, openFlags);
 		if(handle != INVALID_HANDLE) {
-			FileSeek(handle,0,SEEK_END); 
-			FileWriteString(handle, data, StringLen(data));
+			bool seekResult = FileSeek(handle,0,SEEK_END);
+			if(!seekResult) {
+				Print("Failed to move pointer to end of file: ", filePath);
+				if(i < (retryCount - 1)) {
+					Print("Retrying line write operation: ", line);
+				}
+				
+				FileClose(handle);
+				continue;
+			}
+			
+			int totalChars = StringLen(data);
+			uint bytesWritten = FileWriteString(handle, data, totalChars);
+			if(bytesWritten < 1 && totalChars > 0) {
+				Print("Failed to write data to file: ", filePath);
+			   PrintFormat("Total characters = [%d], but total bytes written to file = [%d]", totalChars, bytesWritten);			
+				if(i < (retryCount - 1)) {
+					Print("Retrying line write operation: ", line);
+				}
+				
+				FileClose(handle);
+				continue;			
+			} else {
+			   PrintFormat("Total characters = [%d], Total bytes written to file = [%d]", totalChars, bytesWritten);			
+			}
+			
 			FileFlush(handle);
 			FileClose(handle);
 			result = true;
 			break;
+		} else {
+			Print("Failed to open file: ", filePath);
+			if(i < (retryCount - 1)) {
+				Print("Retrying line write operation: ", line);
+			}
 		}
 
 		if(i == (retryCount - 1)) {
