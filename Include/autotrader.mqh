@@ -497,6 +497,27 @@ bool cancelOrExitOrder(string account, string id) {
 	return (a && b);
 }
 
+/*
+* Cancels all open orders for the given account. Returns true on success.
+*/
+bool cancelAllOrders(string account) {
+	if(AT_DEBUG) {
+		Print("Cancelling all open orders for account: ", account);
+	}
+
+	string csv = AT_CANCEL_ALL_ORDERS_CMD + AT_COMMA + account;
+	
+	bool written = fileWriteLine(COMMANDS_FILE, csv);
+	
+	if(written) {
+		Print("Cancel all open orders request sent, account: ", account);
+	} else {
+		Print("Cancel all open orders request failed, account: ", account);
+	}
+	
+	return written;
+}
+
 /*****************************************************************************/
 /************************ CANCEL/EXIT ORDER FUNCTIONS - END ***********************/
 /*****************************************************************************/
@@ -1254,4 +1275,113 @@ double getMarginAvailableAll(string pseudoAccount) {
 
 /*****************************************************************************/
 /************************ MARGIN DETAIL FUNCTIONS - END ***********************/
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/********************* PORTFOLIO SUMMARY FUNCTIONS - START ********************/
+/*****************************************************************************/
+
+/*
+* Reads summary file and returns a column value.
+*/
+string readSummaryColumn(string pseudoAccount, uint columnIndex) {
+	string filePath = getPortfolioSummaryFile(pseudoAccount);
+	return fileReadCsvColumnByRowId( filePath, pseudoAccount, 1, columnIndex );
+}
+
+/*
+* Retrieve portfolio M2M.
+*/
+double getPortfolioMtm(string pseudoAccount) {
+	return StringToDouble(readSummaryColumn(pseudoAccount, 2));
+}
+
+/*
+* Retrieve portfolio PNL.
+*/
+double getPortfolioPnl(string pseudoAccount) {
+	return StringToDouble(readSummaryColumn(pseudoAccount, 3));
+}
+
+/*
+* Retrieve portfolio position count.
+*/
+long getPortfolioPositionCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 4));
+}
+
+/*
+* Retrieve portfolio OPEN position count.
+*/
+long getPortfolioOpenPositionCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 5));
+}
+
+/*
+* Retrieve portfolio CLOSED position count.
+*/
+long getPortfolioClosedPositionCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 6));
+}
+
+/*
+* Retrieve portfolio open short quantity.
+*/
+long getPortfolioOpenShortQuantity(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 7));
+}
+
+/*
+* Retrieve portfolio open long quantity.
+*/
+long getPortfolioOpenLongQuantity(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 8));
+}
+
+/*
+* Retrieve portfolio order count.
+*/
+long getPortfolioOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 9));
+}
+
+/*
+* Retrieve portfolio "open" order count.
+*/
+long getPortfolioOpenOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 10));
+}
+
+/*
+* Retrieve portfolio "complete" order count.
+*/
+long getPortfolioCompleteOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 11));
+}
+
+/*
+* Retrieve portfolio "cancelled" order count.
+*/
+long getPortfolioCancelledOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 12));
+}
+
+/*
+* Retrieve portfolio "rejected" order count.
+*/
+long getPortfolioRejectedOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 13));
+}
+
+/*
+* Retrieve portfolio "trigger pending" order count.
+*/
+long getPortfolioTriggerPendingOrderCount(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 14));
+}
+
+/*****************************************************************************/
+/********************** PORTFOLIO SUMMARY FUNCTIONS - END *********************/
 /*****************************************************************************/

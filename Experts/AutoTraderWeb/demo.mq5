@@ -40,6 +40,10 @@ int OnInit()
 	// modifyOrderPriceExample();
    
 	// cancelOrderExample();
+   
+	// cancelAllOrdersExample();
+   
+	// readPortfolioStatsExample();
 	
 	// checkOrderStatus();
    
@@ -56,6 +60,26 @@ void OnTick()
 /*********************************************************************
 * Given below are some examples of AutoTrader functions.
 *********************************************************************/
+
+void readPortfolioStatsExample() {
+   Print("getPortfolioMtm = ", getPortfolioMtm("159401"));
+   Print("getPortfolioPnl = ", getPortfolioPnl("159401"));
+   Print("getPortfolioPositionCount = ", getPortfolioPositionCount("159401"));
+   Print("getPortfolioOpenPositionCount = ", getPortfolioOpenPositionCount("159401"));
+   Print("getPortfolioClosedPositionCount = ", getPortfolioClosedPositionCount("159401"));
+   Print("getPortfolioOpenShortQuantity = ", getPortfolioOpenShortQuantity("159401"));
+   Print("getPortfolioOpenLongQuantity = ", getPortfolioOpenLongQuantity("159401"));
+   Print("getPortfolioOrderCount = ", getPortfolioOrderCount("159401"));
+   Print("getPortfolioOpenOrderCount = ", getPortfolioOpenOrderCount("159401"));
+   Print("getPortfolioCompleteOrderCount = ", getPortfolioCompleteOrderCount("159401"));
+   Print("getPortfolioCancelledOrderCount = ", getPortfolioCancelledOrderCount("159401"));
+   Print("getPortfolioRejectedOrderCount = ", getPortfolioRejectedOrderCount("159401"));
+   Print("getPortfolioTriggerPendingOrderCount = ", getPortfolioTriggerPendingOrderCount("159401"));
+}
+
+void cancelAllOrdersExample() {
+   cancelAllOrders("159401");
+}
 
 void checkOrderStatus() {
    Print("Status: ", getOrderStatus("159401", "553094789")); 
