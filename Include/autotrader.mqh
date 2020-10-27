@@ -1292,49 +1292,49 @@ string readSummaryColumn(string pseudoAccount, uint columnIndex) {
 }
 
 /*
-* Retrieve portfolio M2M.
+* Retrieve portfolio M2M (Position category = DAY).
 */
 double getPortfolioMtm(string pseudoAccount) {
 	return StringToDouble(readSummaryColumn(pseudoAccount, 2));
 }
 
 /*
-* Retrieve portfolio PNL.
+* Retrieve portfolio PNL (Position category = DAY).
 */
 double getPortfolioPnl(string pseudoAccount) {
 	return StringToDouble(readSummaryColumn(pseudoAccount, 3));
 }
 
 /*
-* Retrieve portfolio position count.
+* Retrieve portfolio position count (Position category = DAY).
 */
 long getPortfolioPositionCount(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 4));
 }
 
 /*
-* Retrieve portfolio OPEN position count.
+* Retrieve portfolio OPEN position count (Position category = DAY).
 */
 long getPortfolioOpenPositionCount(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 5));
 }
 
 /*
-* Retrieve portfolio CLOSED position count.
+* Retrieve portfolio CLOSED position count (Position category = DAY).
 */
 long getPortfolioClosedPositionCount(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 6));
 }
 
 /*
-* Retrieve portfolio open short quantity.
+* Retrieve portfolio open short quantity (Position category = DAY).
 */
 long getPortfolioOpenShortQuantity(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 7));
 }
 
 /*
-* Retrieve portfolio open long quantity.
+* Retrieve portfolio open long quantity (Position category = DAY).
 */
 long getPortfolioOpenLongQuantity(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 8));
@@ -1380,6 +1380,55 @@ long getPortfolioRejectedOrderCount(string pseudoAccount) {
 */
 long getPortfolioTriggerPendingOrderCount(string pseudoAccount) {
 	return StringToInteger(readSummaryColumn(pseudoAccount, 14));
+}
+
+/*
+* Retrieve portfolio M2M (Position category = NET).
+*/
+double getPortfolioMtmNET(string pseudoAccount) {
+	return StringToDouble(readSummaryColumn(pseudoAccount, 15));
+}
+
+/*
+* Retrieve portfolio PNL (Position category = NET).
+*/
+double getPortfolioPnlNET(string pseudoAccount) {
+	return StringToDouble(readSummaryColumn(pseudoAccount, 16));
+}
+
+/*
+* Retrieve portfolio position count (Position category = NET).
+*/
+long getPortfolioPositionCountNET(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 17));
+}
+
+/*
+* Retrieve portfolio OPEN position count (Position category = NET).
+*/
+long getPortfolioOpenPositionCountNET(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 18));
+}
+
+/*
+* Retrieve portfolio CLOSED position count (Position category = NET).
+*/
+long getPortfolioClosedPositionCountNET(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 19));
+}
+
+/*
+* Retrieve portfolio open short quantity (Position category = NET).
+*/
+long getPortfolioOpenShortQuantityNET(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 20));
+}
+
+/*
+* Retrieve portfolio open long quantity (Position category = NET).
+*/
+long getPortfolioOpenLongQuantityNET(string pseudoAccount) {
+	return StringToInteger(readSummaryColumn(pseudoAccount, 21));
 }
 
 /*****************************************************************************/
