@@ -37,6 +37,11 @@ string getPortfolioMarginsFile(string pseudoAccount) {
 	return OUTPUT_DIR + WIN_SEPARATOR + pseudoAccount + "-margins.csv";
 }
 
+/* Portfolio holdings */
+string getPortfolioHoldingsFile(string pseudoAccount) {
+	return OUTPUT_DIR + WIN_SEPARATOR + pseudoAccount + "-holdings.csv";
+}
+
 /* Portfolio summary */
 string getPortfolioSummaryFile(string pseudoAccount) {
 	return OUTPUT_DIR + WIN_SEPARATOR + pseudoAccount + "-summary.csv";
