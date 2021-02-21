@@ -1273,6 +1273,215 @@ double getMarginAvailableAll(string pseudoAccount) {
 	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 6));
 }
 
+/*
+* Retrieve margin total for equity category.
+*/
+double getMarginTotalEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 9));
+}
+
+/*
+* Retrieve margin total for commodity category.
+*/
+double getMarginTotalCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 9));
+}
+
+/*
+* Retrieve margin total for entire account.
+*/
+double getMarginTotalAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 9));
+}
+
+/*
+* Retrieve margin net for equity category.
+*/
+double getMarginNetEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 10));
+}
+
+/*
+* Retrieve margin net for commodity category.
+*/
+double getMarginNetCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 10));
+}
+
+/*
+* Retrieve margin net for entire account.
+*/
+double getMarginNetAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 10));
+}
+
+/*
+* Retrieve margin span for equity category.
+*/
+double getMarginSpanEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 11));
+}
+
+/*
+* Retrieve margin span for commodity category.
+*/
+double getMarginSpanCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 11));
+}
+
+/*
+* Retrieve margin span for entire account.
+*/
+double getMarginSpanAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 11));
+}
+
+/*
+* Retrieve margin exposure for equity category.
+*/
+double getMarginExposureEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 12));
+}
+
+/*
+* Retrieve margin exposure for commodity category.
+*/
+double getMarginExposureCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 12));
+}
+
+/*
+* Retrieve margin exposure for entire account.
+*/
+double getMarginExposureAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 12));
+}
+
+/*
+* Retrieve margin collateral for equity category.
+*/
+double getMarginCollateralEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 13));
+}
+
+/*
+* Retrieve margin collateral for commodity category.
+*/
+double getMarginCollateralCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 13));
+}
+
+/*
+* Retrieve margin collateral for entire account.
+*/
+double getMarginCollateralAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 13));
+}
+
+/*
+* Retrieve margin payin for equity category.
+*/
+double getMarginPayinEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 14));
+}
+
+/*
+* Retrieve margin payin for commodity category.
+*/
+double getMarginPayinCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 14));
+}
+
+/*
+* Retrieve margin payin for entire account.
+*/
+double getMarginPayinAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 14));
+}
+
+/*
+* Retrieve margin payout for equity category.
+*/
+double getMarginPayoutEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 15));
+}
+
+/*
+* Retrieve margin payout for commodity category.
+*/
+double getMarginPayoutCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 15));
+}
+
+/*
+* Retrieve margin payout for entire account.
+*/
+double getMarginPayoutAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 15));
+}
+
+/*
+* Retrieve margin adhoc for equity category.
+*/
+double getMarginAdhocEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 16));
+}
+
+/*
+* Retrieve margin adhoc for commodity category.
+*/
+double getMarginAdhocCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 16));
+}
+
+/*
+* Retrieve margin adhoc for entire account.
+*/
+double getMarginAdhocAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 16));
+}
+
+/*
+* Retrieve margin realised mtm for equity category.
+*/
+double getMarginRealisedMtmEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 17));
+}
+
+/*
+* Retrieve margin realised mtm for commodity category.
+*/
+double getMarginRealisedMtmCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 17));
+}
+
+/*
+* Retrieve margin realised mtm for entire account.
+*/
+double getMarginRealisedMtmAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 17));
+}
+
+/*
+* Retrieve margin unrealised mtm for equity category.
+*/
+double getMarginUnrealisedMtmEquity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_EQUITY, 18));
+}
+
+/*
+* Retrieve margin unrealised mtm for commodity category.
+*/
+double getMarginUnrealisedMtmCommodity(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_COMMODITY, 18));
+}
+
+/*
+* Retrieve margin unrealised mtm for entire account.
+*/
+double getMarginUnrealisedMtmAll(string pseudoAccount) {
+	return StringToDouble(readMarginColumn(pseudoAccount, AT_MARGIN_ALL, 18));
+}
 /*****************************************************************************/
 /************************ MARGIN DETAIL FUNCTIONS - END ***********************/
 /*****************************************************************************/
