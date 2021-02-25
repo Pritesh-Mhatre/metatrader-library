@@ -1487,6 +1487,99 @@ double getMarginUnrealisedMtmAll(string pseudoAccount) {
 /*****************************************************************************/
 
 
+/*****************************************************************************/
+/************************ HOLDING DETAIL FUNCTIONS - START ***********************/
+/*****************************************************************************/
+
+/*
+* Reads holding file and returns a column value for the given symbol.
+*/
+string readHoldingColumn(string pseudoAccount, string symbol, uint columnIndex) {
+	string filePath = getPortfolioHoldingsFile(pseudoAccount);
+	return fileReadCsvColumnByRowId( filePath, symbol, 3, columnIndex );
+}
+
+/*
+* Retrieve holding exchange.
+*/
+string getHoldingExchange(string pseudoAccount, string symbol) {
+	return readHoldingColumn(pseudoAccount, symbol, 4);
+}
+
+/*
+* Retrieve holding ISIN.
+*/
+string getHoldingIsin(string pseudoAccount, string symbol) {
+	return readHoldingColumn(pseudoAccount, symbol, 6);
+}
+
+/*
+* Retrieve holding quantity.
+*/
+double getHoldingQuantity(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 7));
+}
+
+/*
+* Retrieve holding T1 quantity.
+*/
+double getHoldingT1Quantity(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 8));
+}
+
+/*
+* Retrieve holding PNL.
+*/
+double getHoldingPnl(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 9));
+}
+
+/*
+* Retrieve holding product.
+*/
+string getHoldingProduct(string pseudoAccount, string symbol) {
+	return readHoldingColumn(pseudoAccount, symbol, 10);
+}
+
+/*
+* Retrieve holding collateral type.
+*/
+string getHoldingCollateralType(string pseudoAccount, string symbol) {
+	return readHoldingColumn(pseudoAccount, symbol, 11);
+}
+
+/*
+* Retrieve holding collateral quantity.
+*/
+double getHoldingCollateralQuantity(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 12));
+}
+
+/*
+* Retrieve holding haircut.
+*/
+double getHoldingHaircut(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 13));
+}
+
+/*
+* Retrieve holding average price.
+*/
+double getHoldingAvgPrice(string pseudoAccount, string symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 14));
+}
+
+/*
+* Retrieve holding instrument token.
+*/
+double getHoldingInstToken(string pseudoAccount, string symbol) {
+	return readHoldingColumn(pseudoAccount, symbol, 15);
+}
+
+/*****************************************************************************/
+/************************ HOLDING DETAIL FUNCTIONS - END ***********************/
+/*****************************************************************************/
+
 
 /*****************************************************************************/
 /********************* PORTFOLIO SUMMARY FUNCTIONS - START ********************/
