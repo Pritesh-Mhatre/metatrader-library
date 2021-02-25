@@ -1516,15 +1516,15 @@ string getHoldingIsin(string pseudoAccount, string symbol) {
 /*
 * Retrieve holding quantity.
 */
-double getHoldingQuantity(string pseudoAccount, string symbol) {
-	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 7));
+long getHoldingQuantity(string pseudoAccount, string symbol) {
+	return StringToInteger(readHoldingColumn(pseudoAccount, symbol, 7));
 }
 
 /*
 * Retrieve holding T1 quantity.
 */
-double getHoldingT1Quantity(string pseudoAccount, string symbol) {
-	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 8));
+long getHoldingT1Quantity(string pseudoAccount, string symbol) {
+	return StringToInteger(readHoldingColumn(pseudoAccount, symbol, 8));
 }
 
 /*
@@ -1551,8 +1551,8 @@ string getHoldingCollateralType(string pseudoAccount, string symbol) {
 /*
 * Retrieve holding collateral quantity.
 */
-double getHoldingCollateralQuantity(string pseudoAccount, string symbol) {
-	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 12));
+long getHoldingCollateralQuantity(string pseudoAccount, string symbol) {
+	return StringToInteger(readHoldingColumn(pseudoAccount, symbol, 12));
 }
 
 /*
@@ -1572,7 +1572,7 @@ double getHoldingAvgPrice(string pseudoAccount, string symbol) {
 /*
 * Retrieve holding instrument token.
 */
-double getHoldingInstToken(string pseudoAccount, string symbol) {
+string getHoldingInstToken(string pseudoAccount, string symbol) {
 	return readHoldingColumn(pseudoAccount, symbol, 15);
 }
 
