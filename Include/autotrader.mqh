@@ -963,7 +963,7 @@ string getPositionTradingAccount(string pseudoAccount,
 }
 
 /*
-* Retrieve positions's MTM.
+* Retrieve positions's MTM (Mtm calculated by your stock broker).
 */
 double getPositionMtm(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
@@ -973,13 +973,23 @@ double getPositionMtm(string pseudoAccount,
 }
 
 /*
-* Retrieve positions's PNL.
+* Retrieve positions's PNL (Pnl calculated by your stock broker).
 */
 double getPositionPnl(string pseudoAccount, 
 	string category, string type, Exchange independentExchange,	
 	string independentSymbol) {
 	return StringToDouble(readPositionColumn(pseudoAccount, 
 		category, type, independentExchange,	independentSymbol, 8));
+}
+
+/*
+* Retrieve positions's AT PNL (Pnl calculated by AutoTrader Web).
+*/
+double getPositionAtPnl(string pseudoAccount, 
+	string category, string type, Exchange independentExchange,	
+	string independentSymbol) {
+	return StringToDouble(readPositionColumn(pseudoAccount, 
+		category, type, independentExchange,	independentSymbol, 31));
 }
 
 /*
@@ -1574,6 +1584,20 @@ double getHoldingAvgPrice(string pseudoAccount, string symbol) {
 */
 string getHoldingInstToken(string pseudoAccount, string symbol) {
 	return readHoldingColumn(pseudoAccount, symbol, 15);
+}
+
+/*
+* Retrieve holding symbol LTP.
+*/
+double getHoldingLtp(pseudoAccount, symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 21));
+}
+
+/*
+* Retrieve holding current value.
+*/
+double getHoldingCurrentValue(pseudoAccount, symbol) {
+	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 22));
 }
 
 /*****************************************************************************/
