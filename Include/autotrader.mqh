@@ -1589,14 +1589,14 @@ string getHoldingInstToken(string pseudoAccount, string symbol) {
 /*
 * Retrieve holding symbol LTP.
 */
-double getHoldingLtp(pseudoAccount, symbol) {
+double getHoldingLtp(string pseudoAccount, string symbol) {
 	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 21));
 }
 
 /*
 * Retrieve holding current value.
 */
-double getHoldingCurrentValue(pseudoAccount, symbol) {
+double getHoldingCurrentValue(string pseudoAccount, string symbol) {
 	return StringToDouble(readHoldingColumn(pseudoAccount, symbol, 22));
 }
 
